@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 
+export DATAVAULT_HOME=/datavault-home
+export RABBIT_SERVER=rds-dv-mq-test.is.ed.ac.uk
 
 
 # Java (Should be Openjre version 8)
 yum -y install java-1.8.0-openjdk
 
 # set the ip of the rabbit server
-sed -i.bak 's/queue.server = localhost/queue.server = 192.168.0.12/' /vagrant_datavault-home/config/datavault.properties
+sed -i.bak "s/queue.server = localhost/queue.server = $RABBIT_SERVER/" $DATAVAULT_HOME/config/datavault.properties
 
 
 # Start the Worker(s)
-. /vagrant/envvars.sh
-export DATAVAULT_HOME=/vagrant_datavault-home
-chmod 777 /vagrant_datavault-home/bin/start-worker.sh
-/vagrant_datavault-home/bin/start-worker.sh >> /tmp/worker.log
+
+chmod 777 $DATAVAULT_HOME/bin/start-worker.sh
+$DATAVAULT_HOME/bin/start-worker.sh >> /tmp/worker.log
 
 # Some dummy data (if using 'local storage')
 #mkdir -p /Users

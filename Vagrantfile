@@ -114,7 +114,7 @@ Vagrant.configure("2") do |config|
     #web.vm.network "public_network", ip: "192.168.0.10"
     web.vm.network "private_network", ip: "192.168.0.10" #,
     #    virtualbox__intnet: "datanet"
-    web.vm.synced_folder "datavault", "/tmp/datavault" , type: "nfs", linux__nfs_options: ['rw','no_subtree_check','no_root_squash','async']
+    # web.vm.synced_folder "datavault", "/tmp/datavault" , type: "nfs", linux__nfs_options: ['rw','no_subtree_check','no_root_squash','async']
   end
 
   config.vm.provision "shell", path: "bootstrap.sh" 
